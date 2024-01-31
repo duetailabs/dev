@@ -33,3 +33,9 @@ module "gke" {
   network_tags                    = [local.cluster_type]
   deletion_protection             = false
 }
+
+resource "google_project_iam_member" "gke_sa_artifact_registry_reader" {
+  project     = var.project_id
+  role = "roles/artifactregistry.reader"
+  member = "serviceAccount:${module.gke.service_account}"
+}
