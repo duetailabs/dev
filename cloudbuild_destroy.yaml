@@ -21,7 +21,7 @@ options:
   substitution_option: 'ALLOW_LOOSE'
 steps:
   # Destroy GCP resources
-  - name: 'hashicorp/terraform:1.0.0'
+  - name: 'hashicorp/terraform:1.6.6'
     id: 'destroy-infra'
     entrypoint: 'sh'
     args:
