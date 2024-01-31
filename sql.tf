@@ -4,7 +4,7 @@ module "postgresql-db" {
 
   name                 = var.db_name
   random_instance_name = true
-  additional_databases = [{name: "package_details", charset: "UTF8", collation: "en_US.UTF8"}]
+  additional_databases = [{name: "product_details", charset: "UTF8", collation: "en_US.UTF8"}]
   additional_users     = [{name: "evolution", password: "evolution", random_password: false}]
   database_version     = "POSTGRES_15"
   project_id           = var.project_id
