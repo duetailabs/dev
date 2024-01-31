@@ -15,7 +15,7 @@ spec:
       containers:
       - name: shipping
    # Add your Artifact Registry container repo here
-        image: ${IMAGE_REPO}
+        image: ${IMAGE_REPO}:latest
         env:
         - name: INSTANCE_CONNECTION_NAME
           value: ${INSTANCE_CONNECTION_NAME}
