@@ -35,4 +35,7 @@ resource "google_service_account_iam_binding" "workload_identity_binding" {
   members = [
     "serviceAccount:${var.project_id}.svc.id.goog[default/default]"
   ]
+  depends_on = [
+    module.gke
+  ]
 }
