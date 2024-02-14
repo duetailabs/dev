@@ -1,11 +1,5 @@
 locals {
   cluster_type           = "gke1"
-  network_name           = "duet-vpc"
-  subnet_name            = "duet-vpc-subnet"
-  master_auth_subnetwork = "duet-vpc-master-subnet"
-  pods_range_name        = "ip-range-pods-duet-vpc"
-  svc_range_name         = "ip-range-svc-duet-vpc"
-  subnet_names           = [for subnet_self_link in module.gcp-network.subnets_self_links : split("/", subnet_self_link)[length(split("/", subnet_self_link)) - 1]]
 }
 
 data "google_client_config" "default" {}

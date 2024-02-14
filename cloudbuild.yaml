@@ -17,6 +17,7 @@ tags:
   - duetai-for-dev
 substitutions:
   _PROJECT_ID: ${PROJECT_ID}
+  _USER: ${USER}
 options:
   substitution_option: 'ALLOW_LOOSE'
 steps:
@@ -41,6 +42,7 @@ steps:
     - '-c'
     - |
       sed -i "s/YOUR_PROJECT_ID/${_PROJECT_ID}/g" terraform.tfvars
+      sed -i "s/YOUR_USER/${_USER}/g" terraform.tfvars
       sed -i "s/YOUR_PROJECT_ID/${_PROJECT_ID}/g" backend.tf
 
       terraform init

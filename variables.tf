@@ -2,6 +2,10 @@ variable "project_id" {
   description = "The project ID to host the cluster in"
 }
 
+variable "user" {
+  description = "The user's email in the form abc@example.com"
+}
+
 variable "region" {
   description = "The region the cluster in"
   default     = "us-central1"
@@ -27,4 +31,20 @@ variable "prefix" {
   type        = string
   description = "Prefix applied to service account names."
   default     = ""
+}
+
+# For Cloud Workstations
+variable "workstation_cluster_id" {
+  type        = string
+  default     = "gemini-workstation-cluster"
+}
+
+variable "workstation_config_id" {
+  type        = string
+  default     = "gemini-workstation-config"
+}
+
+variable "workstation_id" {
+  type        = string
+  default     = "gemini-workstation"
 }
