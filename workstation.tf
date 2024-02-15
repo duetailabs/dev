@@ -23,6 +23,7 @@ resource "google_workstations_workstation_config" "workstation_config" {
       machine_type                = "e2-standard-4" # e2-standard-4 has 4 vCPUs, 2 cores, & 16GB RAM.
       boot_disk_size_gb           = 35
       disable_public_ip_addresses = false
+      service_account_scopes      = ["https://www.googleapis.com/auth/cloud-platform"]
     }
   }
   persistent_directories {
