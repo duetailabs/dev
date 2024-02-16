@@ -9,6 +9,18 @@ resource "google_workstations_workstation_cluster" "workstation_cluster" {
   location               = var.region
 }
 
+module "workstations_service_account" {
+  source  = "terraform-google-modules/service-accounts/google"
+  version = "~> 4.0"
+
+  project_id    = var.project_id
+  prefix        = var.prefix
+  names         = ["workstationsa"]
+  project_roles = ["${var.project_id}=>roles/cloudsql.client"]
+  display_name  = "Workstation SA"
+  description   = "Workstation SA"
+}
+
 # Create the config for the workstation.
 # Workstation configs can take about 1 minute to create.
 resource "google_workstations_workstation_config" "workstation_config" {
@@ -23,7 +35,8 @@ resource "google_workstations_workstation_config" "workstation_config" {
       machine_type                = "e2-standard-4" # e2-standard-4 has 4 vCPUs, 2 cores, & 16GB RAM.
       boot_disk_size_gb           = 35
       disable_public_ip_addresses = false
-      service_account_scopes      = ["https://www.googleapis.com/auth/cloud-platform"]
+      service_account             = module.workstations_service_account.service_account.email
+      service_account_scopes      = ["https://www.googleapis.com/auth/sqlservice.admin"]
     }
   }
   persistent_directories {
@@ -56,4 +69,12 @@ resource "google_workstations_workstation_iam_member" "member" {
   workstation_id = google_workstations_workstation.workstation.workstation_id
   role = "roles/workstations.user"
   member = "user:${var.user}"
+}
+
+resource "google_service_account_iam_binding" "google_workstations_workstation_act_as_iam" {
+  service_account_id = "projects/${var.project_id}/serviceAccounts/${module.workstations_service_account.service_account.email}"
+  role = "roles/iam.serviceAccountUser"
+  members = [
+    "user:${var.user}"
+  ]
 }
