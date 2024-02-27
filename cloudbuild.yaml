@@ -35,6 +35,7 @@ steps:
           cloudbuild.googleapis.com \
           sqladmin.googleapis.com \
           workstations.googleapis.com \
+          sourcerepo.googleapis.com \
           storage.googleapis.com \
           --project ${_PROJECT_ID}
   # Create GCS backend bucket
