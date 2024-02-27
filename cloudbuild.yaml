@@ -20,10 +20,27 @@ substitutions:
 options:
   substitution_option: 'ALLOW_LOOSE'
 steps:
+  # Enable APIs
+  - name: "gcr.io/cloud-builders/gcloud"
+    id: "enable-apis"
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        gcloud services enable \
+          compute.googleapis.com \
+          container.googleapis.com \
+          cloudresourcemanager.googleapis.com \
+          cloudbuild.googleapis.com \
+          sqladmin.googleapis.com \
+          workstations.googleapis.com \
+          sourcerepo.googleapis.com \
+          storage.googleapis.com \
+          --project ${_PROJECT_ID}
+  # Create GCS bucket for Terraform state
   - name: "gcr.io/cloud-builders/gcloud"
     id: "create-gcs-backend-bucket"
     entrypoint: bash
-    waitFor: ['-']
     args:
       - -c
       - |
@@ -31,7 +48,6 @@ steps:
           gsutil mb -p ${PROJECT_ID} gs://${_PROJECT_ID}) && \
         ([[ $(gsutil versioning get gs://${_PROJECT_ID} | grep Enabled) ]] || \
           gsutil versioning set on gs://${PROJECT_ID})
-
   # Create GCP resources
   - name: 'hashicorp/terraform:1.6.6'
     id: 'create-infra'
