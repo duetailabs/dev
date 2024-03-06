@@ -1,5 +1,5 @@
 resource "google_artifact_registry_repository" "shipping-repo" {
-  location      = "us-central1"
+  location      = var.gcp_region
   repository_id = "shipping"
   description   = "Shipping repository"
   format        = "DOCKER"

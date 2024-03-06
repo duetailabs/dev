@@ -8,10 +8,10 @@ module "postgresql-db" {
   additional_users     = [{name: "evolution", password: "evolution", random_password: false}]
   database_version     = "POSTGRES_15"
   project_id           = var.project_id
-  zone                 = "us-central1-c"
-  region               = "us-central1"
-  edition              = "ENTERPRISE_PLUS"
-  tier                 = "db-perf-optimized-N-2"
+  # zone                 = "us-central1-c"
+  region               = var.gcp_region
+  # edition              = "ENTERPRISE_PLUS"
+  # tier                 = "db-perf-optimized-N-2"
   data_cache_enabled   = true
 
   deletion_protection = false

@@ -34,12 +34,12 @@ module "gcp-network" {
     {
       subnet_name   = local.subnet_name
       subnet_ip     = "10.0.0.0/17"
-      subnet_region = var.region
+      subnet_region = var.gcp_region
     },
     {
       subnet_name   = local.master_auth_subnetwork
       subnet_ip     = "10.60.0.0/17"
-      subnet_region = var.region
+      subnet_region = var.gcp_region
     },
   ]
 
